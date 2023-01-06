@@ -25,4 +25,9 @@ public class CustomerService {
     public String saveOrder(Customer c, Order o){
         return orderRepository.saveOrder(c, o);
     }
+
+    // TASK 6
+    public String getTotalDispatchPendingOrdersByCustomer(String name){
+        return customerRepository.getTotalDispatchedByCustomer(name);
+    }
 }

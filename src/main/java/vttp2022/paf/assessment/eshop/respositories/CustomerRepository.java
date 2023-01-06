@@ -42,6 +42,29 @@ public class CustomerRepository {
 			System.out.println("findCustomerByNameGetId:" + Optional.of(result).get());
 			return Optional.of(result);
 		}
-
 	}
+
+	public Optional<SqlRowSet> getTotalDispatchedByCustomer(String name){
+		SqlRowSet result = jdbcTemplate.queryForRowSet(SQL_SELECT_DISPATCHED_PENDING_ORDERS_BY_CUSTOMER, name)
+		if (!result.next()) {
+			System.out.println("No result queried");
+            return Optional.empty();
+        } else{
+			System.out.println("getTotalDispatchedByCustomer:" + Optional.of(result).get());
+			return Optional.of(result);
+		}
+	}
+
+	public Optional<SqlRowSet> getTotalPendingByCustomer(String name){
+		SqlRowSet result = jdbcTemplate.queryForRowSet(SQL_SELECT_DISPATCHED_PENDING_ORDERS_BY_CUSTOMER, name)
+		if (!result.next()) {
+			System.out.println("No result queried");
+            return Optional.empty();
+        } else{
+			System.out.println("getTotalDispatchedByCustomer:" + Optional.of(result).get());
+			return Optional.of(result);
+		}
+	}
+
+
 }

@@ -140,4 +140,16 @@ public class OrderController {
 				.body(result.toString());
 	}
 
+	// Task 6
+	@GetMapping(path = {"/api/order/{name}/status"})
+	public ResponseEntity<String> getOrderDispatchPendingStatusByCustomer(String name){
+		
+		customerService.getTotalDispatchPendingOrdersByCustomer(name);
+		JsonObject result = null;
+		// Build the result
+		JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+		return null;
+
+	}
+
 }
