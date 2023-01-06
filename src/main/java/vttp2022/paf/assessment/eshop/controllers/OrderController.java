@@ -33,6 +33,8 @@ import vttp2022.paf.assessment.eshop.services.WarehouseService;
 public class OrderController {
 
 	public static final String SUCCESS = "SUCCESS";
+	public static final String DISPATCHED = "dispatched";
+	public static final String PENDING = "pending";
 
 	@Autowired
 	private CustomerService customerService;
@@ -66,9 +68,10 @@ public class OrderController {
 				.body(result.toString());
 	}
 
+	// Task 3
 	// Save the order to the database
-	@GetMapping (path={"/api/customer/add"})
-    public ResponseEntity<String> saveOrder(){
+	@GetMapping(path = { "/api/customer/add" })
+	public ResponseEntity<String> saveOrder() {
 		System.out.println("Entered!");
 		Customer customerToBeSave = new Customer();
 		customerToBeSave.setName("Steven");
@@ -76,8 +79,8 @@ public class OrderController {
 		customerToBeSave.setEmail("steven@gmail.com");
 
 		Order orderToBeSave = new Order();
-		orderToBeSave.setOrderId(UUID.randomUUID().toString().substring(0,8));
-		orderToBeSave.setDeliveryId(UUID.randomUUID().toString().substring(0,8));
+		orderToBeSave.setOrderId(UUID.randomUUID().toString().substring(0, 8));
+		orderToBeSave.setDeliveryId(UUID.randomUUID().toString().substring(0, 8));
 		orderToBeSave.setName(customerToBeSave.getName());
 		orderToBeSave.setAddress(customerToBeSave.getAddress());
 		orderToBeSave.setEmail(customerToBeSave.getEmail());
@@ -96,10 +99,10 @@ public class OrderController {
 		items.add(item2);
 
 		orderToBeSave.setLineItems(items);
-		
+
 		String saveResult = customerService.saveOrder(customerToBeSave, orderToBeSave);
 
-		if (!saveResult.equals(SUCCESS)){
+		if (!saveResult.equals(SUCCESS)) {
 			return ResponseEntity
 					.status(HttpStatus.NOT_FOUND)
 					.contentType(MediaType.APPLICATION_JSON)
@@ -110,11 +113,31 @@ public class OrderController {
 				.status(HttpStatus.OK)
 				.contentType(MediaType.APPLICATION_JSON)
 				.body("{\"Success\": \"Order Saved!\"}");
-    }
+	}
 
-	@PostMapping (path={"/dispatch"})
-	public void dispatchOrder(Order o){
-		warehouseService.dispatch(o);
+	// Task 4 and 5
+	@PostMapping(path = { "/dispatch" })
+	public ResponseEntity<String> dispatchOrder(Order o) {
+		OrderStatus os = warehouseService.dispatch(o);
+		JsonObject result = null;
+		JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+
+		if (os.getStatus().equals(DISPATCHED)){
+			objBuilder.add("orderId", os.getOrderId());
+			objBuilder.add("deliveryId", os.getDeliveryId());
+			objBuilder.add("status", os.getStatus());
+		}
+		else if (os.getStatus().equals(PENDING)){
+			objBuilder.add("orderId", os.getOrderId());
+			objBuilder.add("status", os.getStatus());
+		}
+		
+		result = objBuilder.build();
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(result.toString());
 	}
 
 }

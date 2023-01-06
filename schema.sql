@@ -84,6 +84,15 @@ desc orders;
 
 SELECT * FROM orders;
 
+-- Task 6
+SELECT c.name, COUNT(os.status) AS numberOfDispatched, COUNT(os.status) as numberOfPending
+FROM customers c
+JOIN orders o
+ON c.customer_id = o.customer_id
+JOIN order_status os
+ON o.order_id = os.order_id
+WHERE c.name = 'Yizhun';
+
 -- Save the order to the database
 -- 1. INSERT Order Status *order_id [PRE-REQUISITE]
 INSERT INTO order_status (order_id, delivery_id, status, status_update) VALUES ('O123456D', 'D0', 'PENDING', NOW());
@@ -97,8 +106,20 @@ INSERT INTO line_items (item, quantity) VALUES ('IPHONE', 5);
 -- 4. INSERT Orders 
 INSERT INTO orders (customer_id, order_id, line_items_id, order_date) VALUES (1, 'O123456D', 1, NOW());
 
+-- 1. INSERT Order Status *order_id [PRE-REQUISITE]
+INSERT INTO order_status (order_id, delivery_id, status, status_update) VALUES ('O234567D', 'D0', 'PENDING', NOW());
+
+-- 2. INSERT line *line_items_id [PRE-REQUISITE]
+INSERT INTO line (id) VALUES (null);
+
+-- 3. INSERT line_items 
+INSERT INTO line_items (item, quantity) VALUES ('APPLETV', 8);
+
+-- 4. INSERT Orders 
+INSERT INTO orders (customer_id, order_id, line_items_id, order_date) VALUES (1, 'O234567D', 1, NOW());
+
 SELECT * FROM customers;
-SELECT * FROM order_status order by status_update desc;
+SELECT * FROM order_status;
 SELECT * FROM line;
 SELECT * FROM line_items;
 SELECT * FROM orders;
