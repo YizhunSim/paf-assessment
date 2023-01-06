@@ -45,7 +45,7 @@ public class CustomerRepository {
 	}
 
 	public Optional<SqlRowSet> getTotalDispatchedByCustomer(String name){
-		SqlRowSet result = jdbcTemplate.queryForRowSet(SQL_SELECT_DISPATCHED_PENDING_ORDERS_BY_CUSTOMER, name)
+		SqlRowSet result = jdbcTemplate.queryForRowSet(SQL_SELECT_DISPATCHED_PENDING_ORDERS_BY_CUSTOMER, name);
 		if (!result.next()) {
 			System.out.println("No result queried");
             return Optional.empty();
@@ -56,7 +56,7 @@ public class CustomerRepository {
 	}
 
 	public Optional<SqlRowSet> getTotalPendingByCustomer(String name){
-		SqlRowSet result = jdbcTemplate.queryForRowSet(SQL_SELECT_DISPATCHED_PENDING_ORDERS_BY_CUSTOMER, name)
+		SqlRowSet result = jdbcTemplate.queryForRowSet(SQL_SELECT_DISPATCHED_PENDING_ORDERS_BY_CUSTOMER, name);
 		if (!result.next()) {
 			System.out.println("No result queried");
             return Optional.empty();
