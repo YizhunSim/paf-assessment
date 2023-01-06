@@ -28,6 +28,7 @@ public class CustomerService {
 
     // TASK 6
     public String getTotalDispatchPendingOrdersByCustomer(String name){
-        return customerRepository.getTotalDispatchedByCustomer(name);
+        // return customerRepository.getTotalDispatchedByCustomer(name);
+        return null;
     }
 }
