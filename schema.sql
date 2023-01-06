@@ -18,20 +18,6 @@ create table customers (
     primary key (customer_id)
 );
 
--- INSERT DATA INTO TABLE
-
-insert into customers (name, address, email) values ('Yizhun', 'abc123', 'yizhunabc123@gmail.com');
-insert into customers (name, address, email) values ('Zhun', 'bcd123', 'zhun123@gmail.com');
-insert into customers (name, address, email) values ('ZhunSim', 'cdf123', 'zhunsim123@gmail.com');
-insert into customers (name, address, email) values ('SimZhun', 'efg123', 'simzhun123@gmail.com');
-insert into customers (name, address, email) values ('AhZhun', 'hij123', 'ahzhun123@gmail.com');
-
--- SELECT CUSTOMER DATA
-SELECT * FROM customers;
-
--- SQL_SELECT_CUSTOMER_BY_NAME
-SELECT * from customers where name = 'Yizhun';
-
 -- c. Create a Order table --
 -- CREATE Table order_status
 create table order_status (
@@ -92,6 +78,22 @@ ON c.customer_id = o.customer_id
 JOIN order_status os
 ON o.order_id = os.order_id
 WHERE c.name = 'Yizhun';
+
+-- Insertion of Data
+
+-- INSERT DATA INTO TABLE
+
+insert into customers (name, address, email) values ('Yizhun', 'abc123', 'yizhunabc123@gmail.com');
+insert into customers (name, address, email) values ('Zhun', 'bcd123', 'zhun123@gmail.com');
+insert into customers (name, address, email) values ('ZhunSim', 'cdf123', 'zhunsim123@gmail.com');
+insert into customers (name, address, email) values ('SimZhun', 'efg123', 'simzhun123@gmail.com');
+insert into customers (name, address, email) values ('AhZhun', 'hij123', 'ahzhun123@gmail.com');
+
+-- SELECT CUSTOMER DATA
+SELECT * FROM customers;
+
+-- SQL_SELECT_CUSTOMER_BY_NAME
+SELECT * from customers where name = 'Yizhun';
 
 -- Save the order to the database
 -- 1. INSERT Order Status *order_id [PRE-REQUISITE]
